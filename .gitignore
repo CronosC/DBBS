@@ -1,0 +1,12 @@
+# ignore files created by sercom
+sercom/buffer.o
+sercom/configureSerial.o
+sercom/communication.o
+
+# ignore files created by Makefile
+arduino/main.elf
+arduino/main.hex
+arduino/main.o
+
+# ignore DS_Store file created by MACOS
+.DS_Store
