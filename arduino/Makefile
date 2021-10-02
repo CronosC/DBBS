@@ -20,7 +20,16 @@
 CLOCK        = 16000000UL
 TARGET       = main
 SRC          = $(TARGET).c
-AVRDUDE_PORT = /dev/cu.usbmodem1101
+
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+AVRDUDE_PORT = /dev/ttyUSB01
+else
+AVRDUDE_PORT = /dev/cu.usbmodem11101
+endif
+
+
 
 ### make targets:
 ###
@@ -168,16 +177,6 @@ sym: $(TARGET).sym
 # Program the device.  
 program: $(TARGET).hex #$(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) #$(AVRDUDE_WRITE_EEPROM)
-
-
-
-# Toggle to Paul's port
-togglePaul: AVRDUDE_PORT = /dev/cu.usbmodem1101
-
-# Toggle to Christian's port
-toggleChris: AVRDUDE_PORT = /dev/ttyUSB
-
-
 
 
 # Convert ELF to COFF for use in debugging / simulating in AVR Studio or VMLAB.

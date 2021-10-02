@@ -7,6 +7,7 @@ sercom/communication.o
 arduino/main.elf
 arduino/main.hex
 arduino/main.o
+arduino/main.eep
 
 # ignore DS_Store file created by MACOS
 .DS_Store
