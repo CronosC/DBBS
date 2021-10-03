@@ -1,22 +1,8 @@
 // communication with serial device
 //
-// USAGE: sercom <SERIAL_DEVICE>
+// USAGE: sercom <SERIAL_DEVICE> <BAUD_RATE>
 // serial device is a path like /dev/ttysAC0 on Linux or /dev/cu.usbmodem1411 on MacOS or COM1 on Windows/Cygwin
 //
-// The program receives data via the serial connection from our board and prints it to the console once a complete
-// line is received. Reading and buffering incoming data is realised with a LineBuffer datatype. The use of a
-// line buffer to handling complete lines is motivated by the fact that is makes processing incoming data using
-// sscanf() much easier.
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// FIXME (that's your assignment!):
-// The program does not yet read input from the console (user input) that shall be sent to the Arduino
-// using write(). See how reading from the serial connection is realized and duplicate the code, adapting
-// it to read from the console device.
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,13 +18,9 @@
 #include "buffer.h"
 
 int gRunning = 1; // global flag: set to 0 when program shall quit
-struct timeval timestamp;
-struct timeval start_timestamp;
 
 // handle a line of input from serial (just print to stdout)
 void processData(char *line) {
-  gettimeofday(&timestamp, NULL);
-  printf("%ld.%ld ", timestamp.tv_sec - start_timestamp.tv_sec, timestamp.tv_usec);
   while (*line) {
         // print out character by character, replacing non-printable ones
         if (isprint(*line)) {
@@ -46,7 +28,7 @@ void processData(char *line) {
         }
         line++;
     }
-    printf("\n");
+  
 
 }
 
@@ -89,7 +71,7 @@ int main(int argc, char* argv[]) {
     //printf("baud rate set to: %s \n", argv[2]);
     printf("listening on %s, enter 'q' + enter to quit...\n", argv[1]);
 
-    gettimeofday(&start_timestamp, NULL);
+
 
 	while (gRunning) {
 		// set up the input set

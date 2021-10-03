@@ -15,7 +15,7 @@ void reset_buffer(buffer *buf){
 	buf->current = 0;
 	buf->start = 0;
 	
-	for(int8_t i = 0; i < buf_size; i++) {
+	for(_int i = 0; i < buf_size; i++) {
 		buf->memory[i] = 0x00;
 	}
 }
@@ -47,20 +47,25 @@ char read_buffer(buffer *buf){
 _int buffer_empty(buffer *buf){
 	return (buf->memory[buf->start] == 0x00);
 }
-
+/*
 _int buffer_full(buffer *buf){
 	_int current_points_to_last_cell = (buf->start == ((buf->current + 1) % buf_size));
 	_int last_cell_has_contents = (buf->memory[buf->current] != 0x00);
 	return (current_points_to_last_cell && last_cell_has_contents);
 }
+*/
+
+_int buffer_full(buffer *buf){
+	return ((buf->memory[buf->current]) != 0x00);
+}
 
 // returns a string from the buffer. The string ends either at end of buffered chars, the next linebreak or the end of buffer (if it is full)
-void get_buffered_string(buffer *buf, char str[], int8_t size){
+void get_buffered_string(buffer *buf, char str[], _int size){
 	_int i = 0;
-	cli();
+	//cli();
 	
 	// first delete data trash from the string
-	for(int8_t j = 0; j < size; j++) {
+	for(_int j = 0; j < size; j++) {
 		str[j] = 0x00;
 	}
 	
@@ -73,9 +78,9 @@ void get_buffered_string(buffer *buf, char str[], int8_t size){
 		}
 		i++;
 	}
-	sei();
+	//sei();
 	
-	// fix the string such that it terminates with /n 0x00
+	// fix the string such that it terminates with \n 0x00
 
 	if(str[i - 1] != '\n'){
 		str[i] = '\n';

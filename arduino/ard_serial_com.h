@@ -3,10 +3,8 @@
 
 
 // Initializes the arduino for serial communication, baud is the BAUD rate (data transfer rate).
-void USART_init(uint16_t baud_rate);
+void USART_init();
 
-// sets the BAUD rate. serial communication must then be restarted to match the new rate.
-void set_BAUD(uint16_t baud_rate);
 
 // evaluates received input chars
 void eval_input(char input[]);
@@ -18,8 +16,11 @@ void put_str(char str[]);
 // sends a hex number over the serial
 void put_dec(int16_t x);
 
-// sends a char over the serial
+// sends a char over to stdout
 void put_c(unsigned char data );
+
+// sends a char over the serial
+void put_buffer_c(unsigned char data );
 
 // receives a single char
 unsigned char get_c(void);

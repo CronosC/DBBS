@@ -20,7 +20,7 @@ _int buffer_empty(buffer *buf);
 _int buffer_full(buffer *buf);
 
 //returns a string from the buffer contents
-void get_buffered_string(buffer *buf, char *str, int8_t size);
+void get_buffered_string(buffer *buf, char *str, _int size);
 
 // for debugging
 void print_buffer(buffer *buf);
