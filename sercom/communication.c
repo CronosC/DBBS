@@ -28,7 +28,7 @@ void processData(char *line) {
         }
         line++;
     }
-  
+      printf("\n");
 
 }
 

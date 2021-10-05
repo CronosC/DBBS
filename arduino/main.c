@@ -3,6 +3,7 @@
 #include <util/twi.h>
 #include "ard_serial_com.c"
 #include "simple_buffer.c"
+#include "timer.c"
 
 void ADC_init(void){
     //Einschalten des Enable bits für den ADC
@@ -17,10 +18,7 @@ void ADC_init(void){
     ADMUX |= (0<<MUX3);
 
     ACSR = (0<<ACD);
-
-    
 }
-
 
 
 void ADC_read(void){
@@ -37,18 +35,18 @@ void ADC_read(void){
     data = ADC;
     put_dec(data);
     put_c('\n');
-
 }
-
 
 
 void SENSOR_init(void){
     DDRD = (1<<DDD2);
 }
 
+
 void SENSOR_toggle(void){
     PORTD ^= (1<<PORTD2);
 }
+
 
 // simple test program to print Sensor data
 //SETUP:
@@ -58,6 +56,7 @@ int __attribute__((OS_main)) main(void) {
     ADC_init();
     put_c('R');     // signal reset
     put_c('\n');
+    ARDUINO_delay_setup(1.0,1);
     sei();
 
 
@@ -67,7 +66,7 @@ int __attribute__((OS_main)) main(void) {
         //ADC_read();
         //put_c('\n');
         //SENSOR_toggle();
-
+        /*
          if(newline_received){
             put_buffer_c('\n');
             char input[33];
@@ -80,8 +79,23 @@ int __attribute__((OS_main)) main(void) {
 
             newline_received = 0;
         }
-
-        _delay_ms(500);
         
+        _delay_ms(500);
+        */
+
+        /*
+        put_c('a');
+        put_c('\n');
+        put_c('b');
+        put_c('\n');
+        put_c('c');
+        put_c('\n');
+        put_c('d');
+        put_c('\n');
+        put_c('e');
+        put_c('\n');
+        put_c('f');
+        put_c('\n');
+        */
     }
 }
