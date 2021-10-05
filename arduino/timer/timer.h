@@ -1,4 +1,4 @@
-//Sets the registers for timer 1
+//Sets the registers for Timer1
 void ARDUINO_delay_set_registers_timer1(int cmp);
 
 //calculates the value of the compare match register

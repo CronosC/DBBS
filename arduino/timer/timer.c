@@ -2,14 +2,16 @@
 #include <avr/io.h>
 #include <math.h>
 
+//Global Timer Variable
+int8_t time;
 
-void ARDUINO_delay_set_registers_timer1(int cmp){
+void ARDUINO_delay_set_registers_timer1(int cmr){
 	cli();
 	TCCR1A = 0;// set entire TCCR1A register to 0
 	TCCR1B = 0;// same for TCCR1B
 	TCNT1  = 0;//initialize counter value to 0
 	// set compare match register
-	OCR1A = cmp;
+	OCR1A = cmr;
 	// turn on CTC mode
 	TCCR1B |= (1 << WGM12);
 	// Set CS10 and CS12 bits for 1024 prescaler
@@ -21,17 +23,17 @@ void ARDUINO_delay_set_registers_timer1(int cmp){
 }
 
 
-void ARDUINO_delay_calculate_cmt(double frq){
+void ARDUINO_delay_calculate_cmr(double frq){
 	//calculate compare match register for frq * 1Hz
-	int cmp = (int)((16*pow(10,6)) / (frq*1024) - 1); //(must be <65536)
-	if(cmp>256 && cmp<65536){
-		ARDUINO_delay_set_registers_timer1(cmp);
+	int cmr = (int)((16*pow(10,6)) / (frq*1024) - 1); //(must be <65536)
+	if(cmr>256 && cmr<65536){
+		ARDUINO_delay_set_registers_timer1(cmr);
 	}
-	else if(cmp>0 && cmp<=256){
+	else if(cmr>0 && cmr<=256){
 		//TODO: Use Timer0 or Timer2
 	}
 	else{
-		put_c('E');     //ERROR: Calculation for cmp failed
+		put_c('E');     //ERROR: Calculation of cmr failed
    		put_c('\n');
     	put_c('3');     
     	put_c('\n');
@@ -46,7 +48,7 @@ double ARDUINO_delay_calculate_frq(double interval){
 
 
 void ARDUINO_delay_setup(double interval, int unit){
-
+	time = 0;
 	if(interval > 0){
 		double frq = 0;
 		switch(unit) {
@@ -72,7 +74,7 @@ void ARDUINO_delay_setup(double interval, int unit){
     		put_c('1');     
     		put_c('\n');
    		}
-   		ARDUINO_delay_calculate_cmt(frq);
+   		ARDUINO_delay_calculate_cmr(frq);
 	}
 	else{
 		put_c('E');     // ERROR: Invalid interval
@@ -84,6 +86,5 @@ void ARDUINO_delay_setup(double interval, int unit){
 
 
 ISR(TIMER1_COMPA_vect){
-	put_c('t');
-	put_c('\n');
+	time++;
 }

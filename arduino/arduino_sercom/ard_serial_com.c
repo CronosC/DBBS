@@ -95,11 +95,11 @@ void put_dec(int16_t x) {
 	unsigned char buf[8];
 
 	if (x<0) { // check sign
-		put_buffer_c('-');
+		put_c('-');
 		x = -x;
 	}
 	if (x==0) { // check for null
-		put_buffer_c('0');
+		put_c('0');
 	} else {
 		int i=0;
 		while (i<8 && x>0) {
@@ -107,7 +107,7 @@ void put_dec(int16_t x) {
 		    x = x/10;
 	}
 	i=i-1;
-	while (i>= 0) put_buffer_c(buf[i--]);
+	while (i>= 0) put_c(buf[i--]);
 	}
 }
 

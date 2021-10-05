@@ -5,6 +5,8 @@
 #include "arduino_sercom/simple_buffer.c"
 #include "timer/timer.c"
 
+extern int8_t time;
+
 void ADC_init(void){
     //Einschalten des Enable bits für den ADC
     ADCSRA |= (1<<ADEN) | 7;
@@ -38,12 +40,12 @@ void ADC_read(void){
 }
 
 
-void SENSOR_init(void){
+void MOISTURE_SENSOR_init(void){
     DDRD = (1<<DDD2);
 }
 
 
-void SENSOR_toggle(void){
+void MOISTURE_SENSOR_toggle(void){
     PORTD ^= (1<<PORTD2);
 }
 
@@ -52,21 +54,33 @@ void SENSOR_toggle(void){
 //SETUP:
 int __attribute__((OS_main)) main(void) {
     USART_init();   // initialize serial
-    SENSOR_init();
+    MOISTURE_SENSOR_init();
     ADC_init();
     put_c('R');     // signal reset
     put_c('\n');
-    ARDUINO_delay_setup(1.0,1);
+    //ARDUINO_delay_setup(1.0,1);
     sei();
 
 
 //LOOP:
     
     while (1) {
-        //ADC_read();
+        //if(time > 5){
+            put_str_nl("test");
+
+            MOISTURE_SENSOR_toggle();
+            _delay_ms(1500);
+
+            ADC_read();
+
+            _delay_ms(1500);
+            MOISTURE_SENSOR_toggle();
+            time = 0;
+        //}
+        
         //put_c('\n');
         //SENSOR_toggle();
-        /*
+        
          if(newline_received){
             put_buffer_c('\n');
             char input[33];
@@ -80,8 +94,8 @@ int __attribute__((OS_main)) main(void) {
             newline_received = 0;
         }
         
-        _delay_ms(500);
-        */
+        
+        
 
         /*
         put_c('a');
