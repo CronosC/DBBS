@@ -23,20 +23,33 @@ void ADC_init(void){
 }
 
 
-void ADC_read(void){
-
+int16_t ADC_read(void){
     int16_t data;
     
     //put ADC in conversion mode
     ADCSRA |=  (1<<ADSC); 
 
     //Check for if ADC is in conversion mode
-    while(ADCSRA & (1<<ADSC)){}
-                                 
-
+    while(ADCSRA & (1<<ADSC)){}                              
     data = ADC;
-    put_dec(data);
-    put_c('\n');
+    
+    return data;
+}
+
+
+int16_t MOISTURE_SENSOR_get_averaged_reading(int8_t n) {
+	int16_t data;
+	data = ADC_read();
+	n--;
+	
+	while(n>0){
+		int16_t tmp;
+		tmp = ADC_read();
+		data = (data + tmp) / 2;
+		n--;
+	}
+	
+	return data;
 }
 
 
