@@ -1,9 +1,9 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <util/twi.h>
-#include "ard_serial_com.c"
-#include "simple_buffer.c"
-#include "timer.c"
+#include "arduino_sercom/ard_serial_com.c"
+#include "arduino_sercom/simple_buffer.c"
+#include "timer/timer.c"
 
 void ADC_init(void){
     //Einschalten des Enable bits für den ADC
