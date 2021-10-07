@@ -45,7 +45,7 @@ int16_t MOISTURE_SENSOR_get_averaged_reading(int8_t n) {
 		data = (data + tmp) / 2;
 		n--;
 	}
-	
+	_delay_ms(50);
 	MOISTURE_SENSOR_toggle();
 	return data;
 }
