@@ -4,6 +4,7 @@
 
 //Global Timer Variable
 int8_t time;
+int8_t timer_interval;
 
 void ARDUINO_delay_set_registers_timer1(int cmr){
 	cli();
@@ -51,6 +52,7 @@ void ARDUINO_delay_setup(double interval, int unit){
 	time = 0;
 	if(interval > 0){
 		double frq = 0;
+		timer_interval = interval;
 		switch(unit) {
 		//Case for ms
 		case 0 :
@@ -86,5 +88,5 @@ void ARDUINO_delay_setup(double interval, int unit){
 
 
 ISR(TIMER1_COMPA_vect){
-	time++;
+	time += timer_interval;
 }

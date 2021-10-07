@@ -3,12 +3,15 @@
 #include <string.h>
 #include <avr/interrupt.h>
 #include "../sensors/moisture.h"
+#include "../timer/timer.h"
+#include "../timer/clock.h"
 
 
 buffer receive_buffer;
 buffer send_buffer;
 
 volatile int8_t newline_received;
+extern clock uptime;
 
 // SETUP
 // Initializes the arduino for serial communication, baud is the BAUD rate (data transfer rate).
@@ -46,6 +49,17 @@ ISR(USART_UDRE_vect) {
 	}
 }
 
+void check_buffer(void){
+        if(newline_received){
+            char input[33];
+            
+            get_buffered_string(&receive_buffer, input, strlen(input));
+            eval_input(input);
+
+            newline_received = 0;
+        }
+}
+
 
 // evaluates received input chars
 void eval_input(char input[]){
@@ -55,8 +69,15 @@ void eval_input(char input[]){
 	if(str_equal(input, "ping\n")){ 
 		put_str_nl("pong");
 	}else if(str_equal(input, "moist\n")){
-		put_dec(MOISTURE_SENSOR_get_averaged_reading((int8_t)25));
-
+		put_dec_nl(MOISTURE_SENSOR_get_averaged_reading((int8_t)25));
+	}else if(str_equal(input, "timer 1\n")){
+		ARDUINO_delay_setup(1,1);
+	}else if(str_equal(input, "timer 2\n")){
+		ARDUINO_delay_setup(2,1);
+	}else if(str_equal(input, "uptime\n")){
+		char str[10];
+		get_time(&uptime, str);
+		put_str_nl(str);
 	}else {
 		put_str("?: ");
 		put_str(input);
