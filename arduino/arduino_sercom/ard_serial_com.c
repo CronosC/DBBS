@@ -135,9 +135,9 @@ void put_c( unsigned char data ) {
 
 // RECEIVE
 // read a single char
-unsigned char get_c(void)
-{
+unsigned char get_c(void){
 	return UDR0;
 }
+
 
 

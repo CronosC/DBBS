@@ -32,6 +32,9 @@ int16_t ADC_read(void){
 
 
 int16_t MOISTURE_SENSOR_get_averaged_reading(int8_t n) {
+	MOISTURE_SENSOR_toggle();
+	_delay_ms(1000);
+	
 	int16_t data;
 	data = ADC_read();
 	n--;
@@ -43,6 +46,7 @@ int16_t MOISTURE_SENSOR_get_averaged_reading(int8_t n) {
 		n--;
 	}
 	
+	MOISTURE_SENSOR_toggle();
 	return data;
 }
 
