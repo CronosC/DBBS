@@ -34,5 +34,3 @@ void check_clock(clock *c){
 	c->seconds = c->seconds % 60;
 	c->minutes = c->minutes % 60;
 }
-
-
