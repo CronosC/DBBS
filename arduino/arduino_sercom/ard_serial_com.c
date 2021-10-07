@@ -2,6 +2,7 @@
 #include "ard_serial_com.h"
 #include <string.h>
 #include <avr/interrupt.h>
+#include "../sensors/moisture.h"
 
 
 buffer receive_buffer;
@@ -53,8 +54,9 @@ void eval_input(char input[]){
 
 	if(str_equal(input, "ping\n")){ 
 		put_str_nl("pong");
-	}else if(str_equal(input, "ping")){ 
-		put_str_nl("pong wo");
+	}else if(str_equal(input, "moist\n")){
+		put_dec(MOISTURE_SENSOR_get_averaged_reading((int8_t)25));
+
 	}else {
 		put_str("?: ");
 		put_str(input);

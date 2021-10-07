@@ -265,6 +265,7 @@ main.o: main.c /usr/lib/avr/include/avr/io.h \
  /usr/lib/avr/include/util/twi.h arduino_sercom/ard_serial_com.c \
  arduino_sercom/simple_buffer.h arduino_sercom/ard_serial_com.h \
  /usr/lib/avr/include/string.h /usr/lib/gcc/avr/5.4.0/include/stddef.h \
- /usr/lib/avr/include/avr/interrupt.h arduino_sercom/simple_buffer.c \
+ /usr/lib/avr/include/avr/interrupt.h \
+ arduino_sercom/../sensors/moisture.h arduino_sercom/simple_buffer.c \
  /usr/lib/avr/include/stdio.h /usr/lib/gcc/avr/5.4.0/include/stdarg.h \
- timer/timer.c timer/timer.h
+ timer/timer.c timer/timer.h sensors/moisture.c sensors/moisture.h
