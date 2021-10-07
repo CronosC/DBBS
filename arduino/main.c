@@ -30,7 +30,6 @@ int __attribute__((OS_main)) main(void) {
     while (1) {
     	check_buffer();
        if(time > 1){
-            put_str_nl("a");
             increment_clock(&uptime, 0, 0, time);
             time = 0;
         } 
