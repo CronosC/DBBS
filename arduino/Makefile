@@ -24,7 +24,7 @@ SRC          = $(TARGET).c
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-AVRDUDE_PORT = /dev/ttyUSB01
+AVRDUDE_PORT = /dev/ttyACM0
 else
 AVRDUDE_PORT = /dev/cu.usbmodem11101
 endif
@@ -69,13 +69,13 @@ CINCS =
 
 CDEBUG  = -g$(DEBUG)
 CWARN   = -Wall -Wstrict-prototypes
-CTUNING = -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums  
-#CEXTRA = -Wa,-adhlns=$(<:.c=.lst) 
+CTUNING = -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+#CEXTRA = -Wa,-adhlns=$(<:.c=.lst)
 CEXTRA  = -ffunction-sections -fdata-sections
 CFLAGS  = $(CDEBUG) $(CDEFS) $(CINCS) -O$(OPT) $(CWARN) $(CSTANDARD) $(CEXTRA)
 
 
-#ASFLAGS = -Wa,-adhlns=$(<:.S=.lst),-gstabs 
+#ASFLAGS = -Wa,-adhlns=$(<:.S=.lst),-gstabs
 
 
 #Additional libraries.
@@ -86,7 +86,7 @@ PRINTF_LIB_MIN = -Wl,-u,vfprintf -lprintf_min
 # Floating point printf version (requires MATH_LIB = -lm below)
 PRINTF_LIB_FLOAT = -Wl,-u,vfprintf -lprintf_flt
 
-PRINTF_LIB = 
+PRINTF_LIB =
 
 # Minimalistic scanf version
 SCANF_LIB_MIN = -Wl,-u,vfscanf -lscanf_min
@@ -94,7 +94,7 @@ SCANF_LIB_MIN = -Wl,-u,vfscanf -lscanf_min
 # Floating point + %[ scanf version (requires MATH_LIB = -lm below)
 SCANF_LIB_FLOAT = -Wl,-u,vfscanf -lscanf_flt
 
-SCANF_LIB = 
+SCANF_LIB =
 MATH_LIB = -lm
 
 # External memory options
@@ -133,7 +133,7 @@ AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 #AVRDUDE_NO_VERIFY = -V
 
 # Increase verbosity level.  Please use this when submitting bug
-# reports about avrdude. See <http://savannah.nongnu.org/projects/avrdude> 
+# reports about avrdude. See <http://savannah.nongnu.org/projects/avrdude>
 # to submit bug reports.
 AVRDUDE_VERBOSE = -v -v -v
 
@@ -170,11 +170,11 @@ build: elf hex eep
 elf: $(TARGET).elf
 hex: $(TARGET).hex
 eep: $(TARGET).eep
-lss: $(TARGET).lss 
+lss: $(TARGET).lss
 sym: $(TARGET).sym
 
 
-# Program the device.  
+# Program the device.
 program: $(TARGET).hex #$(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) #$(AVRDUDE_WRITE_EEPROM)
 
@@ -184,7 +184,7 @@ COFFCONVERT=$(OBJCOPY) --debugging \
 --change-section-address .data-0x800000 \
 --change-section-address .bss-0x800000 \
 --change-section-address .noinit-0x800000 \
---change-section-address .eeprom-0x810000 
+--change-section-address .eeprom-0x810000
 
 
 coff: $(TARGET).elf
@@ -221,7 +221,7 @@ $(TARGET).elf: $(OBJ)
 
 # Compile: create object files from C source files.
 .c.o:
-	$(CC) -c $(ALL_CFLAGS) $< -o $@ 
+	$(CC) -c $(ALL_CFLAGS) $< -o $@
 
 
 # Compile: create assembler files from C source files.
@@ -254,18 +254,17 @@ depend:
 
 .PHONY:	all build elf hex eep lss sym program coff extcoff clean depend
 # DO NOT DELETE THIS LINE -- make depend depends on it.
-main.o: main.c \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/io.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/sfr_defs.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/inttypes.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/stdint.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/iom328p.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/portpins.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/common.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/version.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/fuse.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/lock.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/util/delay.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/util/delay_basic.h \
- /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/math.h
+main.o: main.c /usr/lib/avr/include/avr/io.h \
+ /usr/lib/avr/include/avr/sfr_defs.h /usr/lib/avr/include/inttypes.h \
+ /usr/lib/gcc/avr/5.4.0/include/stdint.h /usr/lib/avr/include/stdint.h \
+ /usr/lib/avr/include/avr/iom328p.h /usr/lib/avr/include/avr/portpins.h \
+ /usr/lib/avr/include/avr/common.h /usr/lib/avr/include/avr/version.h \
+ /usr/lib/avr/include/avr/fuse.h /usr/lib/avr/include/avr/lock.h \
+ /usr/lib/avr/include/util/delay.h \
+ /usr/lib/avr/include/util/delay_basic.h /usr/lib/avr/include/math.h \
+ /usr/lib/avr/include/util/twi.h arduino_sercom/ard_serial_com.c \
+ arduino_sercom/simple_buffer.h arduino_sercom/ard_serial_com.h \
+ /usr/lib/avr/include/string.h /usr/lib/gcc/avr/5.4.0/include/stddef.h \
+ /usr/lib/avr/include/avr/interrupt.h arduino_sercom/simple_buffer.c \
+ /usr/lib/avr/include/stdio.h /usr/lib/gcc/avr/5.4.0/include/stdarg.h \
+ timer/timer.c timer/timer.h
