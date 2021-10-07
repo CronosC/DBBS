@@ -31,9 +31,20 @@ int __attribute__((OS_main)) main(void) {
 //MAIN LOOP:
     while (1) {
     	check_buffer();
-       if(time > 1){
+        
+       if(time >= 4){
             increment_clock(&uptime, 0, 0, time);
-            time = 0;
+            
+            
+            if( MOISTURE_SENSOR_get_averaged_reading(10) > 200){
+                PUMP_on();
+            }
+            else{
+                PUMP_off();
+            }
+
+            
+            time = 0;  
         } 
     }
     sleep_enable();

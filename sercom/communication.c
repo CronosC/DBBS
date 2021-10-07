@@ -37,48 +37,46 @@ void processUserData(char *line) {
         gRunning = 0;
     }
 
-    write(3, "ping\n", 5;
+     else{
+    int bufsize = 32;
+    int charCnt = 0;
+    char str[bufsize];
 
-     // else{
-    // int bufsize = 32;
-    // int charCnt = 0;
-    // char str[bufsize];
+    for(int i = 0; i < bufsize; i++)
+        str[i] = 0x00;
 
-    // for(int i = 0; i < bufsize; i++)
-    //     str[i] = 0x00;
+    int idx = 0;
+    while (*line) {
+        // print out character by character, replacing non-printable ones
+        if (isprint(*line)) {
+            str[idx] = (*line);
+            idx++;
+        }
+        line++;
+    }
 
-    // int idx = 0;
-    // while (*line) {
-    //     // print out character by character, replacing non-printable ones
-    //     if (isprint(*line)) {
-    //         str[idx] = (*line);
-    //         idx++;
-    //     }
-    //     line++;
-    // }
+    for(int i = 0; i < bufsize; i++){
+        if(str[i] == 0x00){
+            break;
+        }
+        charCnt++;
+    }
 
-    // for(int i = 0; i < bufsize; i++){
-    //     if(str[i] == 0x00){
-    //         break;
-    //     }
-    //     charCnt++;
-    // }
-
-    // if(charCnt > 0){
-    //     char newStr[charCnt];
-    //     for(int i = 0; i < charCnt; i++){
-    //         newStr[i] = str[i];
-    //     }
-    //     write(3, newStr, charCnt);
-    //     write(3, "\n", 1);
-    // }
+    if(charCnt > 0){
+        char newStr[charCnt];
+        for(int i = 0; i < charCnt; i++){
+            newStr[i] = str[i];
+        }
+        write(3, newStr, charCnt);
+        write(3, "\n", 1);
+    }
 
    
     // for(int i = 0; i <bufsize; i++){
     //         printf("%c | ", str[i]);
     // }
     // printf("\n");
-    //}
+    }
 }
 
 // arguments:

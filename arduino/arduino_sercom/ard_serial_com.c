@@ -80,6 +80,12 @@ void eval_input(char input[]){
 		put_str_nl(str);
 	}else if(str_equal(input, "pump\n")){
 		PUMP_toggle();
+	}else if(str_equal(input, "s\n")){
+		MOISTURE_SENSOR_toggle();
+	}else if(str_equal(input, "on\n")){
+		MOISTURE_SENSOR_on();
+	}else if(str_equal(input, "off\n")){
+		MOISTURE_SENSOR_off();
 	}else {
 		put_str("?: ");
 		put_str(input);

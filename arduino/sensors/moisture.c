@@ -32,7 +32,7 @@ int16_t ADC_read(void){
 
 
 int16_t MOISTURE_SENSOR_get_averaged_reading(int8_t n) {
-	MOISTURE_SENSOR_toggle();
+	MOISTURE_SENSOR_on();
 	_delay_ms(1000);
 	
 	int16_t data;
@@ -46,16 +46,24 @@ int16_t MOISTURE_SENSOR_get_averaged_reading(int8_t n) {
 		n--;
 	}
 	_delay_ms(50);
-	MOISTURE_SENSOR_toggle();
+	MOISTURE_SENSOR_off();
 	return data;
 }
 
 
 void MOISTURE_SENSOR_init(void){
-    DDRD = (1<<DDD2);
+    DDRD |= (1<<DDD2);
+
 }
 
 
 void MOISTURE_SENSOR_toggle(void){
     PORTD ^= (1<<PORTD2);
+}
+
+void MOISTURE_SENSOR_on(void){
+    PORTD |= (1<<PORTD2);
+}
+void MOISTURE_SENSOR_off(void){
+    PORTD &= ~(1<<PORTD2);
 }
