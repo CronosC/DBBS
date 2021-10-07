@@ -2,6 +2,7 @@
 sercom/buffer.o
 sercom/configureSerial.o
 sercom/communication.o
+sercom/sercom
 
 # ignore files created by Makefile
 arduino/main.elf

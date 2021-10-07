@@ -33,9 +33,56 @@ void processData(char *line) {
 }
 
 void processUserData(char *line) {
-	if(*line == (int) 'q' && *(line+1) == 0x00) {
-		gRunning = 0;
-	}
+    if(*line == (int) 'q' && *(line+1) == 0x00) {
+        gRunning = 0;
+    }
+
+
+    else{
+    int bufsize = 32;
+    int charCnt = 0;
+    char str[bufsize];
+
+    for(int i = 0; i < bufsize; i++)
+        str[i] = 0x00;
+
+    int idx = 0;
+    while (*line) {
+        // print out character by character, replacing non-printable ones
+        if (isprint(*line)) {
+            str[idx] = (*line);
+            idx++;
+        }
+        line++;
+    }
+
+    for(int i = 0; i < bufsize; i++){
+        if(str[i] == 0x00){
+            break;
+        }
+        charCnt++;
+    }
+
+    if(charCnt > 0){
+        char newStr[charCnt];
+        for(int i = 0; i < charCnt; i++){
+            newStr[i] = str[i];
+        }
+        write(3, newStr, charCnt);
+        write(3, "\n", 1);
+    }
+
+    // for(int i = 0; i <bufsize; i++){
+    //         printf("%c | ", str[i]);
+    // }
+    // printf("\n");
+    }
+
+
+  
+
+    
+    
 }
 
 // arguments:
@@ -60,7 +107,7 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-	// set up file set for select() to wait for incoming data
+    // set up file set for select() to wait for incoming data
     fd_set inputs;
     int fd_max = serialDevice+1;
 
@@ -73,35 +120,36 @@ int main(int argc, char* argv[]) {
 
 
 
-	while (gRunning) {
-		// set up the input set
-		FD_ZERO(&inputs); // <---- HINT: FD_ZERO and FD_SET are explained on the man page for the "select" function
-		FD_SET(serialDevice, &inputs);
-		FD_SET(0, &inputs);
-
-		// set up a time-out (5 secs)
-		struct timeval time;
-		time.tv_sec = 15;  // 'full' seconds
-		time.tv_usec = 0; // microseconds
-
-		// wait/check for incoming data
-		if(select(fd_max, &inputs, NULL, NULL, &time) > 0) {  // <--- HINT: consult man page for select() to figure out how to use it!
-		    // we got data!
-		    // if serial device has sent something, read it!
-		    if (FD_ISSET(serialDevice, &inputs)) {
-		        lineBufferRead(serialBuffer, serialDevice);
-		    }
-
-		    // 0 is stdin
-		    if (FD_ISSET(0, &inputs)) {
-		        lineBufferRead(userBuffer, 0);
-		        write(serialDevice, userBuffer, sizeof(userBuffer) - 1);
-		    }
+    while (gRunning) {
+        // set up the input set
+        FD_ZERO(&inputs); // <---- HINT: FD_ZERO and FD_SET are explained on the man page for the "select" function
+        FD_SET(serialDevice, &inputs);
+        FD_SET(0, &inputs);
 
 
-		} else {
-		    printf("Not data received for 15 seconds.\n");
-		}
+        // set up a time-out (5 secs)
+        struct timeval time;
+        time.tv_sec = 15;  // 'full' seconds
+        time.tv_usec = 0; // microseconds
+
+        // wait/check for incoming data
+        if(select(fd_max, &inputs, NULL, NULL, &time) > 0) {  // <--- HINT: consult man page for select() to figure out how to use it!
+            // we got data!
+            // if serial device has sent something, read it!
+            if (FD_ISSET(serialDevice, &inputs)) {
+                lineBufferRead(serialBuffer, serialDevice);
+            }
+
+            // 0 is stdin
+            if (FD_ISSET(0, &inputs)) {
+                lineBufferRead(userBuffer, 0);
+                //write(serialDevice, userBuffer, sizeof(userBuffer) - 1);
+            }
+
+
+        } else {
+            printf("Not data received for 15 seconds.\n");
+        }
     }
     printf("Goodbye!\n");
     close(serialDevice);
