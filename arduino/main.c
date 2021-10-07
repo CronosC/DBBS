@@ -8,6 +8,7 @@
 #include "timer/timer.c"
 #include "timer/clock.c"
 #include "sensors/moisture.c"
+#include "pump/pump.c"
 
 extern int8_t time;
 extern volatile int8_t newline_received;
@@ -19,6 +20,7 @@ int __attribute__((OS_main)) main(void) {
     cli();
     USART_init();   // initialize serial
     MOISTURE_SENSOR_init();
+    PUMP_init();
     ADC_init();
     ARDUINO_delay_setup(1,1);
     set_sleep_mode(SLEEP_MODE_STANDBY);  // Set sleep mode to STANDBY mode
@@ -30,7 +32,6 @@ int __attribute__((OS_main)) main(void) {
     while (1) {
     	check_buffer();
        if(time > 1){
-            put_str_nl("a");
             increment_clock(&uptime, 0, 0, time);
             time = 0;
         } 

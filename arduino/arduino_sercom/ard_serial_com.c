@@ -78,6 +78,8 @@ void eval_input(char input[]){
 		char str[10];
 		get_time(&uptime, str);
 		put_str_nl(str);
+	}else if(str_equal(input, "pump\n")){
+		PUMP_toggle();
 	}else {
 		put_str("?: ");
 		put_str(input);
