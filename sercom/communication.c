@@ -36,8 +36,7 @@ void processUserData(char *line) {
     if(*line == (int) 'q' && *(line+1) == 0x00) {
         gRunning = 0;
     }
-
-
+    
     else{
     int bufsize = 32;
     int charCnt = 0;
@@ -77,12 +76,6 @@ void processUserData(char *line) {
     // }
     // printf("\n");
     }
-
-
-  
-
-    
-    
 }
 
 // arguments:
