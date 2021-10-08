@@ -16,11 +16,21 @@ extern clock uptime;
 
 // SETUP
 // Initializes the arduino for serial communication, baud is the BAUD rate (data transfer rate).
-void USART_init() {
+void USART_init(uint16_t baud_rate) {
 	
-	/*write baud rate*/
-	UBRR0H = (unsigned char)(16>>8);
-	UBRR0L = (unsigned char)16;
+	if (baud_rate == 9600UL) {
+		/*write baud rate*/
+		UBRR0H = (unsigned char)(103>>8);
+		UBRR0L = (unsigned char)103;
+	} else if (baud_rate == 57600UL) {
+		/*write baud rate*/
+		UBRR0H = (unsigned char)(16>>8);
+		UBRR0L = (unsigned char)16;
+	} else if (baud_rate == 115200UL) {
+		/*write baud rate*/
+		UBRR0H = (unsigned char)(8>>8);
+		UBRR0L = (unsigned char)8;
+	}
 	 	
 	/*enable receiver and transmitter*/
 	UCSR0B = (1<<RXEN0) | (1<<TXEN0) | (1<<RXCIE0) | (1<<TXCIE0);

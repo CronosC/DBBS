@@ -20,7 +20,7 @@ extern clock uptime;
 //SETUP:
 int __attribute__((OS_main)) main(void) {
     cli();
-    USART_init();   // initialize serial
+    USART_init(116500UL);   // initialize serial
     MOISTURE_SENSOR_init();
     PUMP_init();
     ADC_init();
