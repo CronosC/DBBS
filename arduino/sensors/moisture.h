@@ -8,5 +8,7 @@ int16_t MOISTURE_SENSOR_get_averaged_reading(int8_t n);
 
 void MOISTURE_SENSOR_init(void);
 void MOISTURE_SENSOR_toggle(void);
+void MOISTURE_SENSOR_on(void);
+void MOISTURE_SENSOR_off(void);
 
 #endif

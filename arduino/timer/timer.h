@@ -1,3 +1,6 @@
+#ifndef __timer__ // avoid duplicate definition
+#define __timer__
+
 //Sets the registers for Timer1
 void ARDUINO_delay_set_registers_timer1(int cmp);
 
@@ -9,3 +12,5 @@ int ARDUINO_delay_calculate_frequency(double interval);
 
 //starts the setup-process. User can input a desired interval in a specific unit
 void ARDUINO_delay_setup(double interval, int unit);
+
+#endif

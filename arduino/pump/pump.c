@@ -1,3 +1,5 @@
+#include "pump.h"
+
 void PUMP_init(void){
     DDRD |= (1<<DDD3);
 }

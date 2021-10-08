@@ -14,6 +14,7 @@ void put_str(char str[]);
 
 // sends a hex number over the serial
 void put_dec(int16_t x);
+void put_dec_nl(int16_t x);
 
 // sends a char over to stdout
 void put_c(unsigned char data );

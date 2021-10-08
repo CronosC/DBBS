@@ -2,9 +2,11 @@
 #include <util/delay.h>
 #include <util/twi.h>
 #include <avr/sleep.h>
+#include <string.h>
+#include <avr/interrupt.h>
 
-#include "arduino_sercom/ard_serial_com.c"
 #include "arduino_sercom/simple_buffer.c"
+#include "arduino_sercom/ard_serial_com.c"
 #include "timer/timer.c"
 #include "timer/clock.c"
 #include "sensors/moisture.c"

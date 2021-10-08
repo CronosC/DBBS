@@ -5,6 +5,7 @@
 #include "../sensors/moisture.h"
 #include "../timer/timer.h"
 #include "../timer/clock.h"
+#include "../pump/pump.h"
 
 
 buffer receive_buffer;
