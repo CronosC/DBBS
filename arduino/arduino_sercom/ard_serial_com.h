@@ -3,7 +3,7 @@
 
 
 // Initializes the arduino for serial communication, baud is the BAUD rate (data transfer rate).
-void USART_init(uint16_t baud_rate);
+void USART_init(uint32_t baud_rate);
 
 // evaluates received input chars
 void eval_input(char input[]);
