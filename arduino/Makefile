@@ -254,21 +254,31 @@ depend:
 
 .PHONY:	all build elf hex eep lss sym program coff extcoff clean depend
 # DO NOT DELETE THIS LINE -- make depend depends on it.
-main.o: main.c /usr/lib/avr/include/avr/io.h \
- /usr/lib/avr/include/avr/sfr_defs.h /usr/lib/avr/include/inttypes.h \
- /usr/lib/gcc/avr/5.4.0/include/stdint.h /usr/lib/avr/include/stdint.h \
- /usr/lib/avr/include/avr/iom328p.h /usr/lib/avr/include/avr/portpins.h \
- /usr/lib/avr/include/avr/common.h /usr/lib/avr/include/avr/version.h \
- /usr/lib/avr/include/avr/fuse.h /usr/lib/avr/include/avr/lock.h \
- /usr/lib/avr/include/util/delay.h \
- /usr/lib/avr/include/util/delay_basic.h /usr/lib/avr/include/math.h \
- /usr/lib/avr/include/util/twi.h /usr/lib/avr/include/avr/sleep.h \
- /usr/lib/avr/include/string.h /usr/lib/gcc/avr/5.4.0/include/stddef.h \
- /usr/lib/avr/include/avr/interrupt.h arduino_sercom/simple_buffer.c \
- arduino_sercom/simple_buffer.h /usr/lib/avr/include/stdio.h \
- /usr/lib/gcc/avr/5.4.0/include/stdarg.h arduino_sercom/ard_serial_com.c \
- arduino_sercom/ard_serial_com.h arduino_sercom/../sensors/moisture.h \
- arduino_sercom/../timer/timer.h arduino_sercom/../timer/clock.h \
- arduino_sercom/../pump/pump.h timer/timer.c timer/timer.h timer/clock.c \
- timer/clock.h sensors/moisture.c sensors/moisture.h pump/pump.c \
- pump/pump.h
+main.o: main.c \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/io.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/sfr_defs.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/inttypes.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdint.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/stdint.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/iom328p.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/portpins.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/common.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/version.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/fuse.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/lock.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/util/delay.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/util/delay_basic.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/math.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/util/twi.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/sleep.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/string.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/lib/avr-gcc/9/gcc/avr/9.3.0/include/stddef.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/avr/interrupt.h \
+ arduino_sercom/simple_buffer.c arduino_sercom/simple_buffer.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/avr/include/stdio.h \
+ /usr/local/homebrew/Cellar/avr-gcc@9/9.3.0_3/lib/avr-gcc/9/gcc/avr/9.3.0/include/stdarg.h \
+ arduino_sercom/ard_serial_com.c arduino_sercom/ard_serial_com.h \
+ arduino_sercom/../sensors/moisture.h arduino_sercom/../timer/timer.h \
+ arduino_sercom/../timer/clock.h arduino_sercom/../pump/pump.h \
+ timer/timer.c timer/timer.h timer/clock.c timer/clock.h \
+ sensors/moisture.c sensors/moisture.h pump/pump.c pump/pump.h

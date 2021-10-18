@@ -3,7 +3,7 @@
 #include <math.h>
 
 //Global Timer Variable
-int8_t time;
+uint16_t time;
 int8_t timer_interval;
 
 void ARDUINO_delay_set_registers_timer1(int cmr){

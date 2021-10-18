@@ -12,15 +12,15 @@
 #include "sensors/moisture.c"
 #include "pump/pump.c"
 
-extern int8_t time;
+extern uint16_t time;
 extern volatile int8_t newline_received;
 extern clock uptime;
 
-// simple test program to print Sensor data
+
 //SETUP:
 int __attribute__((OS_main)) main(void) {
     cli();
-    USART_init(115200UL);   // initialize serial
+    USART_init(57600UL);   // initialize serial
     MOISTURE_SENSOR_init();
     PUMP_init();
     ADC_init();
@@ -34,17 +34,21 @@ int __attribute__((OS_main)) main(void) {
     while (1) {
     	check_buffer();
         
-       if(time >= 4){
+       if(time >= 1200){
             increment_clock(&uptime, 0, 0, time);
             
             
-            if( MOISTURE_SENSOR_get_averaged_reading(10) > 200){
+            while( (MOISTURE_SENSOR_get_averaged_reading(10) < 150) ){
+                if(MOISTURE_SENSOR_get_averaged_reading(10) > 200){
+                    PUMP_off();
+                    break;
+                }
+
                 PUMP_on();
             }
-            else{
+                //lieber mal sicher gehen
                 PUMP_off();
-            }
-
+                put_str_nl("pump off");
             
             time = 0;  
         } 
