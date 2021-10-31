@@ -38,13 +38,10 @@ int __attribute__((OS_main)) main(void) {
             increment_clock(&uptime, 0, 0, time);
             
             
-            while( (MOISTURE_SENSOR_get_averaged_reading(10) < 150) ){
-                if(MOISTURE_SENSOR_get_averaged_reading(10) > 200){
-                    PUMP_off();
-                    break;
-                }
-
+            if( (MOISTURE_SENSOR_get_averaged_reading(100) < 200) ){
+                put_str_nl("pump on");
                 PUMP_on();
+                _delay_ms(500);
             }
                 //lieber mal sicher gehen
                 PUMP_off();

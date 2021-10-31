@@ -26,7 +26,7 @@ UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
 AVRDUDE_PORT = /dev/ttyACM0
 else
-AVRDUDE_PORT = /dev/cu.usbmodem11101
+AVRDUDE_PORT = /dev/cu.usbmodem1201
 endif
 
 
